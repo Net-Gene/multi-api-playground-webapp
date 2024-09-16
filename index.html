@@ -8,12 +8,66 @@
   </head>
   <body>
     <div id="app"></div>
-    
-    <button id="find-me">Show my location</button><br />
-    <p id="status"></p>
-    <a id="map-link" target="_blank"></a>
 
-    <form>
+    <div class="box">
+      <div>
+        <h2 for="txt">WeatherStack API</h2>
+      </div>
+      <div id="weather-output" ></div>
+    </div>
+
+    
+    <div class="box">
+      <div>
+        <h2 for="txt">IMDb Top 100 Movies API</h2>
+      </div>
+      <a id="iMDbTop100Movies"></a>
+    </div>
+
+    <div id="translator" class="box">
+      <h2>Text Translator API</h2>
+      <form id="translate-form">
+        <div>
+          <label for="source-lang">Source Language:</label>
+          <select id="source-lang">
+            <option value="en">English</option>
+            <option value="es">Spanish</option>
+            <option value="fr">French</option>
+            <option value="id">Indonesian</option>
+          </select>
+        </div>
+        <div>
+          <label for="target-lang">Target Language:</label>
+          <select id="target-lang">
+            <option value="en">English</option>
+            <option value="es">Spanish</option>
+            <option value="fr">French</option>
+            <option value="id">Indonesian</option>
+          </select>
+        </div>
+    
+        <label for="text-input">Text to Translate:</label>
+        <input type="text" id="text-input" placeholder="Enter text" />
+    
+        <button type="submit">Translate</button>
+      </form>
+      <div id="translation-output"></div>
+    </div>
+
+    <div class="box">
+      <div>
+        <h2 for="txt">Geolocation API</h2>
+      </div>
+      <button id="find-me">Show my location</button><br />
+      <p id="status"></p>
+      <a id="map-link" target="_blank"></a>
+    </div>
+
+    <form class="box">      
+      <div>
+        <h2 for="txt">Text to Speech API</h2>
+      </div>
+
       <label for="txt">Enter text</label>
       <input id="txt" type="text" class="txt" />
       <div>
@@ -28,7 +82,9 @@
         <div class="pitch-value">1</div>
         <div class="clearfix"></div>
       </div>
-      <select></select>
+      <select>
+
+      </select>
       <div class="controls">
         <button id="play" type="submit">Play</button>
       </div>
