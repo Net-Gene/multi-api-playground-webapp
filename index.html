@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="fi">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
@@ -7,86 +7,94 @@
     <title>Vite + TS</title>
   </head>
   <body>
+    <!-- Sovelluksen pääkontaineri -->
     <div id="app"></div>
 
+    <!-- Sään näyttö -->
     <div class="box">
       <div>
         <h2 for="txt">WeatherStack API</h2>
       </div>
-      <div id="weather-output" ></div>
+      <div id="weather-output"></div>
     </div>
 
-    
+    <!-- Deezerin näyttö -->
     <div class="box">
       <div>
-        <h2 for="txt">IMDb Top 100 Movies API</h2>
+        <h2 for="txt">Get Deezer</h2>
       </div>
-      <a id="iMDbTop100Movies"></a>
+      <div id="deezer-output"></div>
     </div>
 
-    <div id="translator" class="box">
-      <h2>Text Translator API</h2>
-      <form id="translate-form">
+    <!-- Käännöspalvelun lomake -->
+    <div id="translator">
+      <form id="translate-form" class="box">
+        <h2>Google Translate API</h2>
         <div>
-          <label for="source-lang">Source Language:</label>
+          <label for="source-lang">Lähdekieli:</label>
           <select id="source-lang">
-            <option value="en">English</option>
-            <option value="es">Spanish</option>
-            <option value="fr">French</option>
-            <option value="id">Indonesian</option>
+            <option value="en">Englanti</option>
+            <option value="es">Espanja</option>
+            <option value="fr">Ranska</option>
+            <option value="fi">Suomi</option>
           </select>
         </div>
         <div>
-          <label for="target-lang">Target Language:</label>
+          <label for="target-lang">Kohdekieli:</label>
           <select id="target-lang">
-            <option value="en">English</option>
-            <option value="es">Spanish</option>
-            <option value="fr">French</option>
-            <option value="id">Indonesian</option>
+            <option value="en">Englanti</option>
+            <option value="es">Espanja</option>
+            <option value="fr">Ranska</option>
+            <option value="fi">Suomi</option> <!-- Korjattu kirjoitusvirhe -->
           </select>
         </div>
-    
-        <label for="text-input">Text to Translate:</label>
-        <input type="text" id="text-input" placeholder="Enter text" />
-    
-        <button type="submit">Translate</button>
+        <div>
+          <label for="text-input">Käännettävä teksti:</label>
+          <input type="text" id="text-input" placeholder="Syötä teksti" />
+        </div>
+        <div>
+          <button type="submit">Käännä</button>
+        </div>
       </form>
-      <div id="translation-output"></div>
+      <div class="box">
+        <h3>Käännöksen tulos</h3>
+        <div id="translation-output"></div>
+      </div>
     </div>
 
+    <!-- Sijaintitiedot -->
     <div class="box">
       <div>
         <h2 for="txt">Geolocation API</h2>
       </div>
-      <button id="find-me">Show my location</button><br />
+      <button id="find-me">Näytä sijaintini</button><br />
       <p id="status"></p>
       <a id="map-link" target="_blank"></a>
     </div>
 
+    <!-- Tekstistä puheeksi -toiminto -->
     <form class="box">      
       <div>
         <h2 for="txt">Text to Speech API</h2>
       </div>
-
-      <label for="txt">Enter text</label>
+      <label for="txt">Syötä teksti</label>
       <input id="txt" type="text" class="txt" />
       <div>
-        <label for="rate">Rate</label>
+        <label for="rate">Nopeus</label>
         <input type="range" min="0.5" max="2" value="1" step="0.1" id="rate" />
         <div class="rate-value">1</div>
         <div class="clearfix"></div>
       </div>
       <div>
-        <label for="pitch">Pitch</label>
+        <label for="pitch">Sävy</label>
         <input type="range" min="0" max="2" value="1" step="0.1" id="pitch" />
         <div class="pitch-value">1</div>
         <div class="clearfix"></div>
       </div>
-      <select>
-
+      <select id="option">
       </select>
       <div class="controls">
-        <button id="play" type="submit">Play</button>
+        <button id="play" type="submit">Soita</button>
       </div>
     </form>
     <script type="module" src="/src/main.ts"></script>

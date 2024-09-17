@@ -1,8 +1,8 @@
 import { populateVoiceList } from './speech_api'
 import { geoFindMe } from './geolocation_api'
 import { getWeatherstackData } from './weatherstack_api'
-import { textTranslator } from './textTranslator_api'
-import { getRandomFacts } from './getRandomAnimalFacts'
+import { googleTranslate } from './googleTranslate_api'
+import { getDeezer } from './deezer_api'
 import './style.css'
 
 const app = document.querySelector<HTMLDivElement>('#app')!;
@@ -10,17 +10,17 @@ const layout = document.createElement("DIV") as HTMLDivElement;
 
 populateVoiceList();
 geoFindMe();
-getRandomFacts(`cat`, 1);
+getDeezer();
 
-// Hae ja näytä suodatettu Weatherstack-datan käyttöliittymässä (funktiolla getWeatherstackData()).
-// Huom! Käytössä on noin 200 API-pyyntöä ennen kuin käyttäjätilini lukkiutuu Weatherstackissa. 
-// Jos pyyntö ei enää toimi, ongelma saattaa johtua API-avaimen vanhenemisesta tai käyttörajoituksista.
-// Tarkista konsolin virheilmoitukset mahdollisten virheiden selvittämiseksi.
+// Hae ja näytä Weatherstackin säädata käyttöliittymässä funktiolla getWeatherstackData().
+// Huomaa! Käytössä on rajoitettu määrä API-pyyntöjä (noin 200), ennen kuin käyttäjätili voi lukkiutua Weatherstackissa.
+// Jos pyyntö ei enää toimi, tarkista API-avaimen voimassaolo tai käyttörajoitukset.
+// Tarkista myös konsolin virheilmoitukset virheiden selvittämiseksi.
 
-// Get reference to the weather output div
+// Haetaan viittaus säätiedotuksen div-elementtiin
 const weatherOutputDiv = document.querySelector<HTMLDivElement>('#weather-output')!;
 
-// Function to display Weather data
+// Funktio, joka näyttää säätiedot
 async function displayWeatherData() {
     try {
         const weatherData = await getWeatherstackData();
@@ -28,47 +28,46 @@ async function displayWeatherData() {
         if (weatherData) {
             const { name, humidity, feelslike, visibility, is_day, localtime, temperature } = weatherData;
 
-            // Add the weather data to the weatherOutputDiv
+            // Lisätään säätiedot weatherOutputDiv-elementtiin
             weatherOutputDiv.innerHTML = `
-                <p>City: ${name}</p>
-                <p>Humidity: ${humidity}%</p>
-                <p>Feels Like: ${feelslike}°C</p>
-                <p>Visibility: ${visibility} km</p>
-                <p>Is Day: ${is_day === 'yes' ? 'Yes' : 'No'}</p>
-                <p>Local Time: ${localtime}</p>
-                <p>Temperature: ${temperature}°C</p>
+                <p>Kaupunki: ${name}</p>
+                <p>Kosteus: ${humidity}%</p>
+                <p>Tuntuu kuin: ${feelslike}°C</p>
+                <p>Näkyvyys: ${visibility} km</p>
+                <p>Onko päivä: ${is_day === 'yes' ? 'Kyllä' : 'Ei'}</p>
+                <p>Paikallinen aika: ${localtime}</p>
+                <p>Lämpötila: ${temperature}°C</p>
             `;
         } else {
-            weatherOutputDiv.innerText = "Failed to retrieve weather data.";
+            weatherOutputDiv.innerText = "Säätietojen noutaminen epäonnistui.";
         }
     } catch (error) {
-        weatherOutputDiv.innerText = "Failed to retrieve weather data.";
+        weatherOutputDiv.innerText = "Säätietojen noutaminen epäonnistui.";
     }
 }
 
-// Call the displayWeatherData function to load the weather info
+// Kutsutaan displayWeatherData-funktiota säätietojen lataamiseksi
 displayWeatherData();
 
 const translateForm = document.querySelector<HTMLFormElement>('#translate-form')!;
 translateForm.addEventListener('submit', function(event) {
     event.preventDefault();
 
-    // Get the values from the form
+    // Haetaan lomakkeen arvot
     const sourceLang = (document.querySelector<HTMLSelectElement>('#source-lang')!).value;
     const targetLang = (document.querySelector<HTMLSelectElement>('#target-lang')!).value;
     const text = (document.querySelector<HTMLInputElement>('#text-input')!).value;
 
-    // Call the textTranslator function
-    textTranslator(sourceLang, targetLang, text);
+    // Kutsutaan googleTranslate-funktiota
+    googleTranslate(sourceLang, targetLang, text);
 });
-
 
 layout.style.backgroundColor = "black";
 layout.addEventListener("click", (event: MouseEvent) => {
     if ("geolocation" in navigator) {
-        layout.innerText = "Geolocation is available";
+        layout.innerText = "Sijaintipalvelut ovat käytettävissä";
     } else {
-        layout.innerText = "Geolocation IS NOT available";
+        layout.innerText = "Sijaintipalveluja EI OLE käytettävissä";
     }
 });
 
